@@ -1,39 +1,36 @@
-{
-  "name": "ci-cd-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "moment": "^2.30.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install' // or 'yarn install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build' // or 'yarn build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test' // or 'yarn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Add deployment steps here (e.g., deploying to S3, Netlify, etc.)
+                sh 'echo "Deploying the React app..."'
+            }
+        }
+    }
 }
