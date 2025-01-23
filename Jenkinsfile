@@ -1,19 +1,29 @@
 pipeline {
     agent any
-
-    environment {
-        PATH = "/opt/maven3/bin:$PATH"
-    }
-
     stages {
-        stage('Git Checkout') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
+                git url: 'https://github.com/mizanur090148/react-jenkins.git', branch: 'main'
             }
         }
-        stage('Maven Build') {
+        stage('Install Dependencies') {
             steps {
-                sh 'mvn clean package'
+                sh 'npm install'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
             }
         }
     }
