@@ -1,35 +1,19 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "/opt/maven3/bin:$PATH"
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Git Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
             }
         }
-
-        stage('Install Dependencies') {
+        stage('Maven Build') {
             steps {
-                sh 'npm install' // or 'yarn install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'npm run build' // or 'yarn build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'npm test' // or 'yarn test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Add deployment steps here (e.g., deploying to S3, Netlify, etc.)
-                sh 'echo "Deploying the React app..."'
+                sh 'mvn clean package'
             }
         }
     }
