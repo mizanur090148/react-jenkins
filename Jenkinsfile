@@ -1,15 +1,24 @@
-node {
-    stage('SCM Checkout') {
-        // Checkout the code using the Git plugin
-        git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
+pipeline {
+    agent any
+
+    tools {
+        // Use the Maven tool configured in Jenkins as 'Default'
+        maven 'Default'
     }
-    
-    stage('Compile-Package') {
-        // Configure Maven and add it to the environment PATH
-        def mavenHome = tool name: 'Default', type: 'maven'
-        env.PATH = "${mavenHome}/bin:${env.PATH}"
-        
-        // Run the Maven command
-        sh 'mvn package'
+
+    stages {
+        stage('SCM Checkout') {
+            steps {
+                // Checkout the code from GitHub
+                git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
+            }
+        }
+
+        stage('Compile-Package') {
+            steps {
+                // Use Maven to compile and package the application
+                sh 'mvn clean package'
+            }
+        }
     }
 }
