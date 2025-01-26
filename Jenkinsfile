@@ -1,6 +1,6 @@
 node {
     stage('SCM Checkout') {
-        git url: 'https://github.com/mizanur090148/react-jenkins.git', branch: 'main'
+        git 'https://github.com/mizanur090148/react-jenkins.git'
     }
     stage('Compile-Package') {
         sh 'mvn package'
