@@ -1,15 +1,15 @@
 node {
     stage('SCM Checkout') {
-        // Using the Git tool installed in Jenkins
-        def gitHome = tool name: 'Default', type: 'git'
-        env.PATH = "${gitHome}/bin:${env.PATH}" // Add Git to PATH
-        git 'https://github.com/mizanur090148/react-jenkins.git'
+        // Use the Git step directly
+        git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
     }
-
+    
     stage('Compile-Package') {
-        // Using the Maven tool installed in Jenkins
+        // Set up Maven tool and environment
         def mavenHome = tool name: 'Default', type: 'maven'
-        env.PATH = "${mavenHome}/bin:${env.PATH}" // Add Maven to PATH
+        env.PATH = "${mavenHome}/bin:${env.PATH}"
+        
+        // Run Maven package command
         sh 'mvn package'
     }
 }
