@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Default' // Ensure this matches the name in Jenkins configuration
+        nodejs 'Default' // Ensure Node.js is installed and configured in Jenkins
     }
 
     stages {
@@ -12,10 +12,22 @@ pipeline {
             }
         }
 
-        stage('Compile-Package') {
+        stage('Install Dependencies') {
             steps {
-                sh 'mvn --version' // Check if Maven is correctly set up
-                sh 'mvn clean package' // Compile and package
+                sh 'npm install' // Install npm dependencies
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                sh 'npm run build' // Build the React.js project
+            }
+        }
+
+        stage('Package Artifacts') {
+            steps {
+                sh 'tar -czf react-app.tar.gz build/' // Package the build output
+                archiveArtifacts artifacts: 'react-app.tar.gz', fingerprint: true // Archive the artifact
             }
         }
     }
