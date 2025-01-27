@@ -1,2 +1,2 @@
 # ci-cd-app test
-s
+This is jenkins based automation system
