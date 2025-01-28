@@ -37,17 +37,6 @@ pipeline {
                 sh 'npm run build'
             }
         }
-
-        // Uncomment this stage to archive build artifacts for later use
-        /*
-        stage('Archive Artifacts') {
-            steps {
-                // Archive build artifacts
-                echo 'build.'
-                //archiveArtifacts artifacts: 'build/**/*', fingerprint: true
-            }
-        }
-        */
     }
 
     post {
