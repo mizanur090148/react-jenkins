@@ -43,7 +43,8 @@ pipeline {
         stage('Archive Artifacts') {
             steps {
                 // Archive build artifacts
-                archiveArtifacts artifacts: 'build/**/*', fingerprint: true
+                echo 'build.'
+                //archiveArtifacts artifacts: 'build/**/*', fingerprint: true
             }
         }
         */
