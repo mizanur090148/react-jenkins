@@ -2,51 +2,99 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS 18' // Name of the Node.js tool configured in
+        nodejs 'NodeJS 18' // Use the configured Node.js tool
     }
 
     environment {
         NODE_ENV = 'production' // Set environment variable
     }
 
+    options {
+        timeout(time: 20, unit: 'MINUTES') // Set a timeout to avoid long-running jobs
+        timestamps() // Enable timestamps for better log visibility
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Clone the repository
-                git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
+                script {
+                    try {
+                        echo 'Cloning the repository...'
+                        git branch: 'main', url: 'https://github.com/mizanur090148/react-jenkins.git'
+                    } catch (err) {
+                        error 'Failed to checkout the repository'
+                    }
+                }
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Install project dependencies
-                sh 'npm install'
+                script {
+                    try {
+                        echo 'Installing dependencies...'
+                        sh 'npm ci' // Prefer `npm ci` for CI/CD as it's faster and more reliable
+                    } catch (err) {
+                        error 'Dependency installation failed'
+                    }
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Run test suite
-                sh 'npm test'
+                script {
+                    try {
+                        echo 'Running tests...'
+                        sh 'npm test -- --ci --reporters=jest-junit' // Generates test reports
+                    } catch (err) {
+                        error 'Tests failed'
+                    }
+                }
             }
         }
 
         stage('Build') {
             steps {
-                // Build the project
-                sh 'npm run build'
+                script {
+                    try {
+                        echo 'Building the project...'
+                        sh 'npm run build'
+                    } catch (err) {
+                        error 'Build failed'
+                    }
+                }
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                script {
+                    echo 'Archiving build artifacts...'
+                    archiveArtifacts artifacts: 'build/**', fingerprint: true
+                }
             }
         }
     }
 
     post {
-        success {
-            // Actions to perform on successful pipeline execution
-            echo 'Pipeline succeeded! Build artifacts are archived.'
+        always {
+            script {
+                echo 'Cleaning up workspace...'
+                cleanWs() // Clean workspace to free up space
+            }
         }
+
+        success {
+            script {
+                echo '✅ Pipeline succeeded! Artifacts archived successfully.'
+            }
+        }
+
         failure {
-            // Actions to perform on pipeline failure
-            echo 'Pipeline failed! Check the logs for errors.'
+            script {
+                echo '❌ Pipeline failed! Check logs for errors.'
+            }
         }
     }
 }
