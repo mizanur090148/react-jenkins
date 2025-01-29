@@ -46,7 +46,7 @@ pipeline {
                 script {
                     try {
                         echo 'Running tests...'
-                        sh 'npm test -- --ci --reporters=jest-junit' // Generates test reports
+                        sh 'npx jest --ci --reporters=default --reporters=jest-junit'
                     } catch (err) {
                         error 'Tests failed'
                     }
