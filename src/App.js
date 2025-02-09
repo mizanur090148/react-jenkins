@@ -10,7 +10,7 @@ function App() {
         <h4>{moment().subtract(10, "days").calendar()}</h4>
         <h4>{moment().subtract(10, "days").calendar()}</h4>
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Jenkins App</p>
+        <p>Jenkins Application</p>
         <a
           className="App-link"
           href="https://reactjs.org"
