@@ -55,7 +55,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                // Run your deployment commands here. For example, if you have a deploy.sh script:
+                // Set the deploy.sh file as executable
+                sh 'chmod +x deploy.sh'
+                // Now execute the deploy.sh script
                 sh './deploy.sh'
             }
         }
