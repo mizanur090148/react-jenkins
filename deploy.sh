@@ -6,7 +6,7 @@
 set -e
 
 
-echo "Deployment completed successfully!"
+echo "Deployment completed successfully! Wow"
 # Define variables
 # BUILD_DIR="build"
 # TARGET_DIR="/var/www/myapp"  # Update this path to your actual deployment directory
