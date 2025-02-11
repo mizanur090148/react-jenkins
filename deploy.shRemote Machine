@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+# Variables for remote deployment
+REMOTE_USER="deploy"
+REMOTE_HOST="your.remote.server"
+REMOTE_DIR="/var/www/myapp"
+BUILD_DIR="build"
+
+echo "Starting remote deployment process..."
+
+# Create a compressed archive of the build directory
+tar -czf build.tar.gz "${BUILD_DIR}"
+
+# Copy the archive to the remote server
+scp build.tar.gz ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}
+
+# Extract the archive on the remote server and remove the archive file
+ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} && tar -xzf build.tar.gz && rm build.tar.gz"
+
+echo "Remote deployment completed successfully!"
