@@ -70,13 +70,13 @@ pipeline {
         }
 
         success {
-            echo '✅ Pipeline succeeded! Artifacts archived and deployed successfully.'
+            echo "✅ Pipeline succeeded! Artifacts archived and deployed successfully. ${env.EMAIL_RECIPIENT}",
             emailext (
-                subject: "Build Succeeded: ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
+                subject: "Build Succeeded: Build",
                 body: """
                     <p>Hi,</p>
-                    <p>Build <b>${env.BUILD_NUMBER}</b> succeeded and was deployed successfully!</p>
-                    <p>You can view the details here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    <p>Build succeeded and was deployed successfully!</p>
+                    <p>You can view the details here:</p>
                     <p>Regards,<br/>Jenkins</p>
                 """,
                 to: "${env.EMAIL_RECIPIENT}",
@@ -87,11 +87,11 @@ pipeline {
         failure {
             echo '❌ Pipeline failed! Check logs for errors.'
             emailext (
-                subject: "Build Failed: ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
+                subject: "Build Failed:",
                 body: """
                     <p>Hi,</p>
-                    <p>Build <b>${env.BUILD_NUMBER}</b> failed during one of the stages.</p>
-                    <p>Please check the console output for more details: <a href="${env.BUILD_URL}console">${env.BUILD_URL}console</a></p>
+                    <p>Build failed during one of the stages.</p>
+                    <p>Please check the console output for more details:</p>
                     <p>Regards,<br/>Jenkins</p>
                 """,
                 to: "${env.EMAIL_RECIPIENT}",
