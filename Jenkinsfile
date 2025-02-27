@@ -71,21 +71,17 @@ pipeline {
 
         success {
             echo "Sending email to ${env.EMAIL_RECIPIENT}"
-            try {
-                emailext (
-                    subject: "Build Succeeded: ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
-                    body: """
-                        <p>Hi,</p>
-                        <p>Build <b>${env.BUILD_NUMBER}</b> succeeded and was deployed successfully!</p>
-                        <p>You can view the details here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                        <p>Regards,<br/>Jenkins</p>
-                    """,
-                    to: "${env.EMAIL_RECIPIENT}",
-                    mimeType: 'text/html'
-                )
-            } catch (Exception e) {
-                echo "Failed to send email: ${e.message}"
-            }
+            emailext (
+                subject: "Build Succeeded: ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
+                body: """
+                    <p>Hi,</p>
+                    <p>Build <b>${env.BUILD_NUMBER}</b> succeeded and was deployed successfully!</p>
+                    <p>You can view the details here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    <p>Regards,<br/>Jenkins</p>
+                """,
+                to: "${env.EMAIL_RECIPIENT}",
+                mimeType: 'text/html'
+            )
         }
 
         failure {
