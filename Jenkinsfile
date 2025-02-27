@@ -70,7 +70,7 @@ pipeline {
         }
 
         success {
-            echo "✅ Pipeline succeeded! Artifacts archived and deployed successfully. ${env.EMAIL_RECIPIENT}",
+            echo "Sending email to ${env.EMAIL_RECIPIENT}"
             emailext (
                 subject: "Build Succeeded: Build",
                 body: """
