@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         NODE_ENV = 'production'
-        EMAIL_RECIPIENT = 'mizanur090148@gmail.com'
+        EMAIL_RECIPIENT = 'mizanurmilon0901@gmail.com'
     }
 
     options {
