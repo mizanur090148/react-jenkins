@@ -26,7 +26,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'npm ci' // Prefer `npm ci` for CI/CD as it's faster and more reliable
+                sh 'npm ci' // Prefer `npm ci` for CI/CD as it's faster and more
             }
         }
 
