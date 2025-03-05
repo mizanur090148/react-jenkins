@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script {
                     echo "Sending test email to ${env.EMAIL_RECIPIENT}"
-                    emailext (
+                    mail (
                         subject: "Test Email from Jenkins",
                         body: """
                             <p>This is a test email sent from Jenkins.</p>
