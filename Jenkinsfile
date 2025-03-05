@@ -32,7 +32,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Running tests...
+                echo 'Running tests...'
                 // Uncomment and adjust the command below as needed:
                 // sh 'npx jest --ci --reporters=default --reporters=jest-junit'
             }
