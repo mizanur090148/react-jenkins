@@ -61,6 +61,23 @@ pipeline {
                 sh './deploy.sh'
             }
         }
+
+        stage('Test Email') {
+            steps {
+                script {
+                    echo "Sending test email to ${env.EMAIL_RECIPIENT}"
+                    emailext (
+                        subject: "Test Email from Jenkins",
+                        body: """
+                            <p>This is a test email sent from Jenkins.</p>
+                            <p>If you received this email, the email configuration is working correctly.</p>
+                        """,
+                        to: "${env.EMAIL_RECIPIENT}",
+                        mimeType: 'text/html'
+                    )
+                }
+            }
+        }
     }
 
     post {
