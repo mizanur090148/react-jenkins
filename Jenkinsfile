@@ -92,7 +92,7 @@ pipeline {
                 subject: "Build Succeeded: ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
                 body: """
                     <p>Hi,</p>
-                    <p>Build <b>${env.BUILD_NUMBER}</b> succeeded and was deployed successfully!</p>
+                    <p>Build <b>${env.BUILD_NUMBER}</b> succeeded and was deployed successfully</p>
                     <p>You can view the details here: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                     <p>Regards,<br/>Jenkins</p>
                 """,
