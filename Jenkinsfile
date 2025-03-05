@@ -87,8 +87,8 @@ pipeline {
         }
 
         success {
-            echo "Sending email to ${env.EMAIL_RECIPIENT}"
-            emailext (
+            echo "Sending original email to ${env.EMAIL_RECIPIENT}"
+            mail (
                 subject: "Build Succeeded: ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
                 body: """
                     <p>Hi,</p>
@@ -103,7 +103,7 @@ pipeline {
 
         failure {
             echo '❌ Pipeline failed! Check logs for errors.'
-            emailext (
+            mail (
                 subject: "Build Failed:",
                 body: """
                     <p>Hi,</p>
