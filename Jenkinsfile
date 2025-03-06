@@ -54,7 +54,7 @@ pipeline {
         stage('Static Code Analysis') {
             steps {
                 echo 'Running static code analysis...'
-                sh 'npm run lint' // Run ESLint
+                sh 'npm run lint'
             }
         }
 
