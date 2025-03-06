@@ -47,6 +47,7 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 sh 'npm test'
+                sh 'ls -R' // Debugging: List all files in the workspace
                 junit 'test-results/junit.xml' // Publish test results
             }
         }
@@ -54,7 +55,7 @@ pipeline {
         stage('Static Code Analysis') {
             steps {
                 echo 'Running static code analysis...'
-                sh 'npm run lint'
+                sh 'npm run lint' // Run ESLint
             }
         }
 
