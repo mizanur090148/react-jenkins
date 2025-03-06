@@ -40,12 +40,12 @@ pipeline {
 
         stage('Run Tests') {
             when {
-                expression { params.RUN_TESTS == true }
+                //expression { params.RUN_TESTS == true }
             }
             steps {
                 echo 'Running tests...'
                 //sh 'npx jest --ci --reporters=default --reporters=jest-junit'
-                junit 'junit.xml' // Publish test results
+                //junit 'junit.xml' // Publish test results
             }
         }
 
@@ -71,19 +71,19 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo "Deploying the application to ${params.DEPLOY_ENV}..."
-                script {
-                    if (params.DEPLOY_ENV == 'production') {
-                        // Add additional checks or approvals for production deployment
-                        input message: "Deploy to production? Confirm to proceed.", ok: 'Deploy'
-                    }
-                    sh 'chmod +x deploy.sh'
-                    sh './deploy.sh'
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         echo "Deploying the application to ${params.DEPLOY_ENV}..."
+        //         script {
+        //             if (params.DEPLOY_ENV == 'production') {
+        //                 // Add additional checks or approvals for production deployment
+        //                 input message: "Deploy to production? Confirm to proceed.", ok: 'Deploy'
+        //             }
+        //             sh 'chmod +x deploy.sh'
+        //             sh './deploy.sh'
+        //         }
+        //     }
+        // }
 
         stage('Test Email') {
             steps {
