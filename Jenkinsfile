@@ -9,6 +9,8 @@ pipeline {
         NODE_ENV = 'production'
         EMAIL_RECIPIENT = 'mizanur090148@gmail.com'
         BUILD_STATUS = '' // To store build status for notifications
+        JEST_JUNIT_OUTPUT_DIR = 'test-results'
+        JEST_JUNIT_OUTPUT_NAME = 'junit.xml'
     }
 
     options {
@@ -39,13 +41,13 @@ pipeline {
         }
 
         stage('Run Tests') {
-            // when {
-            //     expression { params.RUN_TESTS == true }
-            // }
+            when {
+                expression { params.RUN_TESTS == true }
+            }
             steps {
                 echo 'Running tests...'
-                sh 'npx jest --ci --reporters=default --reporters=jest-junit'
-                junit 'junit.xml' 
+                sh 'npm test'
+                junit 'test-results/junit.xml' // Publish test results
             }
         }
 
