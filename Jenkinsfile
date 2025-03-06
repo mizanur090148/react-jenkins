@@ -39,13 +39,20 @@ pipeline {
         }
 
         stage('Run Tests') {
-            //when {
-                //expression { params.RUN_TESTS == true }
-            //}
+            // when {
+            //     expression { params.RUN_TESTS == true }
+            // }
+            // steps {
+            //     echo 'Running tests...'
+            //     sh 'npx jest --ci --reporters=default --reporters=jest-junit'
+            //     junit 'junit.xml' 
+            // }
+        }
+
+        stage('Static Code Analysis') {
             steps {
-                echo 'Running tests...'
-                //sh 'npx jest --ci --reporters=default --reporters=jest-junit'
-                //junit 'junit.xml' // Publish test results
+                echo 'Running static code analysis...'
+                sh 'npm run lint' // Run ESLint
             }
         }
 
@@ -56,14 +63,6 @@ pipeline {
             }
         }
 
-        stage('Static Code Analysis') {
-            steps {
-                echo 'Running static code analysis...'
-                sh 'npm run lint' // Example: Run ESLint
-                // You can integrate tools like SonarQube here
-            }
-        }
-
         stage('Archive Artifacts') {
             steps {
                 echo 'Archiving build artifacts...'
@@ -71,19 +70,18 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-        //     steps {
-        //         echo "Deploying the application to ${params.DEPLOY_ENV}..."
-        //         script {
-        //             if (params.DEPLOY_ENV == 'production') {
-        //                 // Add additional checks or approvals for production deployment
-        //                 input message: "Deploy to production? Confirm to proceed.", ok: 'Deploy'
-        //             }
-        //             sh 'chmod +x deploy.sh'
-        //             sh './deploy.sh'
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                echo "Deploying the application to ${params.DEPLOY_ENV}..."
+                script {
+                    if (params.DEPLOY_ENV == 'production') {
+                        input message: "Deploy to production? Confirm to proceed.", ok: 'Deploy'
+                    }
+                    sh 'chmod +x deploy.sh'
+                    sh './deploy.sh'
+                }
+            }
+        }
 
         stage('Test Email') {
             steps {
@@ -108,7 +106,6 @@ pipeline {
             echo 'Cleaning up workspace...'
             cleanWs()
             script {
-                // Set build status for notifications
                 env.BUILD_STATUS = currentBuild.currentResult
             }
         }
