@@ -39,9 +39,9 @@ pipeline {
         }
 
         stage('Run Tests') {
-            when {
+            //when {
                 //expression { params.RUN_TESTS == true }
-            }
+            //}
             steps {
                 echo 'Running tests...'
                 //sh 'npx jest --ci --reporters=default --reporters=jest-junit'
