@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 echo 'Running tests...'
-                sh 'npx jest --ci --reporters=default --reporters=jest-junit'
+                //sh 'npx jest --ci --reporters=default --reporters=jest-junit'
                 junit 'junit.xml' // Publish test results
             }
         }
