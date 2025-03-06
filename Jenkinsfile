@@ -9,8 +9,8 @@ pipeline {
         NODE_ENV = 'production'
         EMAIL_RECIPIENT = 'mizanur090148@gmail.com'
         BUILD_STATUS = '' // To store build status for notifications
-        JEST_JUNIT_OUTPUT_DIR = 'test-results'
-        JEST_JUNIT_OUTPUT_NAME = 'junit.xml'
+        JEST_JUNIT_OUTPUT_DIR = 'test-results' // Directory for JUnit report
+        JEST_JUNIT_OUTPUT_NAME = 'junit.xml' // Name of the JUnit report file
     }
 
     options {
