@@ -42,11 +42,11 @@ pipeline {
             // when {
             //     expression { params.RUN_TESTS == true }
             // }
-            // steps {
-            //     echo 'Running tests...'
-            //     sh 'npx jest --ci --reporters=default --reporters=jest-junit'
-            //     junit 'junit.xml' 
-            // }
+            steps {
+                echo 'Running tests...'
+                sh 'npx jest --ci --reporters=default --reporters=jest-junit'
+                junit 'junit.xml' 
+            }
         }
 
         stage('Static Code Analysis') {
